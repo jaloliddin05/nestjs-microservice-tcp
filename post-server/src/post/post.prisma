@@ -1,0 +1,8 @@
+
+model Post {
+  id String @id @default(uuid())
+  title  String?
+  description  String?
+  likeCount Int @default(0)
+  author String?
+}
