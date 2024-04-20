@@ -13,9 +13,7 @@ export class UserController {
   }
 
   @MessagePattern({ cmd: 'get_user_by_id' })
-  async getById(id:string) {    
-    console.log(id);
-    
+  async getById(id:string) {        
     return await this.userService.getById(id)
   }
 
