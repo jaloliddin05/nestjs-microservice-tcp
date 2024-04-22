@@ -17,6 +17,16 @@ export class UserController {
     return await this.userService.getById(id)
   }
 
+  @MessagePattern({ cmd: 'follow_user' })
+  async follow(data) {    
+    return await this.userService.follow(data)
+  }
+
+  @MessagePattern({ cmd: 'un_follow_user' })
+  async unFollow(data) {    
+    return await this.userService.unFollow(data)
+  }
+
   @MessagePattern({ cmd: 'create_user' })
   async create(data) {    
     return await this.userService.create(data)

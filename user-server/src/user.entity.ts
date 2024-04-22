@@ -1,6 +1,8 @@
 import {
     Column,
     Entity,
+    JoinTable,
+    ManyToMany,
     PrimaryGeneratedColumn,
   } from 'typeorm';
 
@@ -26,5 +28,11 @@ import {
   
     @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: string;
+
+    @ManyToMany(()=>User, user=>user.followers,{
+      onDelete:"CASCADE"
+    })
+    @JoinTable()
+    followers: User[]
   }
   

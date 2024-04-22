@@ -6,6 +6,7 @@ import { User } from './user.entity';
 
 import configuration from '../config';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -23,6 +24,19 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
     TypeOrmModule.forFeature([User])
   ],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [
+    UserService,
+    {
+      provide: 'NOTIFICATION_SERVICE',
+      useFactory: () => {
+        return ClientProxyFactory.create({
+          transport: Transport.TCP,
+          options: {
+            port: 3003,
+          },
+        });
+      },
+    },
+  ],
 })
 export class UserModule {}
